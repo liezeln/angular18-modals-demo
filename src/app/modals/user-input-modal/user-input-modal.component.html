@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{ title }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="bsModalRef.hide()"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="itemForm" (ngSubmit)="saveToList()">
+      <div class="mb-3">
+        <label class="form-label">Number of Items: {{ numberOfItems }}</label>
+      </div>
+      <div class="mb-3">
+        <label for="itemName" class="form-label">Item Name</label>
+        <input id="itemName" type="text" class="form-control" formControlName="name" />
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
