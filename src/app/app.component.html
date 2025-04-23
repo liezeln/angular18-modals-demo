@@ -1,11 +1,16 @@
 <div class="container">
     <h2>CSIP6833: Unit 10 - Modals Demo</h2>
     <h4 class="mt-4">Example 1: Simple Confirmation Modal</h4>
-    <p>
+    <div>
         <button class="btn btn-danger" (click)="openConfirmationModal()">Delete Item</button>
-    </p>
+    </div>
     <h4 class="mt-4">Example 2: Modal with user input</h4>
-    <p>
-        <button class="btn btn-primary">Add Item</button>
-    </p>
+    <div>
+        <button class="btn btn-primary mt-2" (click)="openUserModal()">Add Item</button>
+        @if (itemList().length > 0) {
+            <p class="mt-3">
+                <strong>Items: </strong> 
+                {{ itemList().join(', ') }}</p>
+        }
+    </div>
 </div>

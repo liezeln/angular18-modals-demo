@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
+import { UserInputModalComponent } from './modals/user-input-modal/user-input-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { ConfirmationModalComponent } from './modals/confirmation-modal/confirma
 export class AppComponent {
   private modalService = inject(BsModalService)
   private modalRef?: BsModalRef;
+  itemList = signal<string[]>(['Book', 'Pen']);
 
   openConfirmationModal() {
     this.modalRef = this.modalService.show(ConfirmationModalComponent, {
@@ -26,6 +28,22 @@ export class AppComponent {
       } else {
         console.log('Deletion cancelled.');
       }
+      this.modalRef?.hide();
+    });
+  }
+
+  openUserModal() {
+    this.modalRef = this.modalService.show(UserInputModalComponent, {
+      class: 'modal-dialog-centered',
+      initialState: {
+        title: 'Add New Item',
+        numberOfItems: this.itemList().length,
+      },
+    });
+
+    this.modalRef.content?.addNewItem.subscribe((newItem: string) => {
+      this.itemList.update(list => [...list, newItem]);
+      console.log('New item added:', newItem);
       this.modalRef?.hide();
     });
   }
